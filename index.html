@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B-JAY || Card studio master</title>
+    <link rel="icon" type="image" href="my logo.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="intro-screen">
+        <div class="intro-content">
+            <img src="my logo.jpg" height="100">
+            <h1 class="fade-in-text">Hello, I am Bijay</h1>
+            <p class="fade-in-sub">Web Developer</p>
+            <div class="loader-line"></div>
+        </div>
+    </div>
+
+   
+
+    <div class="app-container hidden-app" id="main-app">
+        <aside class="control-panel left-panel">
+               <img src="my logo.jpg" height="100">
+            <h2>Card Studio Master</h2>
+            
+            <div class="control-group">
+                <h3>1. Canvas Ratio & Export</h3>
+                <div class="grid-2col">
+                    <button class="btn ratio-btn active" data-ratio="1/1">1:1 Square</button>
+                    <button class="btn ratio-btn" data-ratio="16/9">16:9 Landscape</button>
+                    <button class="btn ratio-btn" data-ratio="9/16">9:16 Portrait</button>
+                    <button class="btn ratio-btn" data-ratio="4/3">4:3 Standard</button>
+                </div>
+                <button id="download-card-btn" class="btn success-btn" style="margin-top: 10px; width: 100%;">
+                    <i class="fa-solid fa-download"></i> Download Card
+                </button>
+            </div>
+
+            <div class="control-group">
+                <h3>2. Card Canvas Background</h3>
+                <label>BG Type:
+                    <select id="bg-type-select" class="u-input">
+                        <option value="solid">Solid Color</option>
+                        <option value="gradient">Gradient Mix</option>
+                    </select>
+                </label>
+                <div id="solid-bg-ctrl" class="margin-top-xs">
+                    <label>Color: <input type="color" id="card-solid-color" value="#ffffff"></label>
+                </div>
+                <div id="gradient-bg-ctrl" class="hidden margin-top-xs">
+                    <label>Color 1: <input type="color" id="card-grad-1" value="#3b82f6"></label>
+                    <label>Color 2: <input type="color" id="card-grad-2" value="#8b5cf6"></label>
+                    <label>Angle (°): <input type="range" id="card-grad-angle" min="0" max="360" value="135"></label>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>3. Add Assets</h3>
+                <div class="grid-2col">
+                    <button id="add-text-btn" class="btn primary-btn"><i class="fa-solid fa-font"></i> Text</button>
+                    <label for="image-loader" class="btn primary-btn custom-file-upload"><i class="fa-solid fa-image"></i> Image</label>
+                    <input type="file" id="image-loader" accept="image/*">
+                </div>
+                <div class="shape-grid">
+                    <button class="shape-btn" data-shape="rectangle" title="Rectangle"><i class="fa-solid fa-vector-square"></i></button>
+
+                </div>
+            </div>
+
+            <div class="control-group inspector-panel" id="inspector">
+                <h3>4. Property Inspector</h3>
+                <p class="empty-inspector-msg">Click an element to edit properties.</p>
+                
+                <div class="inspector-controls hidden" id="inspector-controls">
+                    <div class="sub-group hidden" id="typography-group">
+                        <h4>Text Options</h4>
+                        <label>Font Size: <input type="range" id="prop-font-size" min="10" max="150" value="24"></label>
+                        <label>Font Style:
+                            <select id="prop-font-family" class="u-input">
+                           <!-- NORMAL FONTS GROUP -->
+    <optgroup label="Normal Fonts">
+        <option value="'Segoe UI', sans-serif">Segoe UI (Sans-Serif)</option>
+        <option value="'Arial', sans-serif">Arial</option>
+        <option value="'Helvetica', sans-serif">Helvetica</option>
+        <option value="'Georgia', serif">Georgia (Serif Elegant)</option>
+        <option value="'Times New Roman', serif">Times New Roman</option>
+        <option value="'Garand', serif">Garamond</option>
+        <option value="'Courier New', monospace">Courier New (Monospace)</option>
+        <option value="'Lucida Console', monospace">Lucida Console</option>
+        <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+        <option value="'Verdana', sans-serif">Verdana</option>
+    </optgroup>
+
+    <!-- CURSIVE FONTS GROUP -->
+    <optgroup label="Cursive Fonts" style="font-family: cursive;">
+        <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+        <option value="'Brush Script MT', cursive">Brush Script MT</option>
+        <option value="'Lucida Handwriting', cursive">Lucida Handwriting</option>
+        <option value="'Apple Chancery', cursive">Apple Chancery</option>
+        <option value="'Caveat', cursive">Caveat</option>
+        <option value="'Pacifico', cursive">Pacifico</option>
+        <option value="'Dancing Script', cursive">Dancing Script</option>
+        <option value="'Great Vibes', cursive">Great Vibes</option>
+        <option value="'Parisienne', cursive">Parisienne</option>
+        <option value="cursive">Generic Cursive</option>
+    </optgroup>
+                            </select>
+                        </label>
+                        <div class="format-buttons">
+                            <button class="btn-toggle" id="toggle-bold"><i class="fa-solid fa-bold"></i></button>
+                            <button class="btn-toggle" id="toggle-italic"><i class="fa-solid fa-italic"></i></button>
+                            <button class="btn-toggle" id="toggle-underline"><i class="fa-solid fa-underline"></i></button>
+                        </div>
+                        
+                        <h5>Text Case Style</h5>
+                        <div class="case-grid">
+                            <button class="btn-case" data-case="sentence">Aa</button>
+                            <button class="btn-case" data-case="lower">aa</button>
+                            <button class="btn-case" data-case="upper">AA</button>
+                            <button class="btn-case" data-case="capitalize">Aa Aa</button>
+                        </div>
+                        <label class="margin-top-xs">Font Color: <input type="color" id="prop-font-color" value="#000000"></label>
+
+                        <h5 class="margin-top-xs">Text Box Background</h5>
+                        <label>BG Type:
+                            <select id="text-bg-type" class="u-input">
+                                <option value="transparent">Transparent</option>
+                                <option value="solid">Solid Color</option>
+                                <option value="gradient">Gradient Mix</option>
+                            </select>
+                        </label>
+                        <div id="text-solid-bg-block" class="hidden margin-top-xs">
+                            <label>BG Color: <input type="color" id="text-bg-solid-color" value="#ffffff"></label>
+                        </div>
+                        <div id="text-grad-bg-block" class="hidden margin-top-xs">
+                            <label>Color 1: <input type="color" id="text-bg-grad1" value="#ff7e5f"></label>
+                            <label>Color 2: <input type="color" id="text-bg-grad2" value="#feb47b"></label>
+                            <label>Angle: <input type="range" id="text-bg-grad-angle" min="0" max="360" value="90"></label>
+                        </div>
+                    </div>
+
+                    <div class="sub-group hidden" id="fill-group">
+                        <h4>Fill / Shape Color</h4>
+                        <label>Color: <input type="color" id="prop-fill-color" value="#ef4444"></label>
+                    </div>
+
+                    <div class="sub-group">
+                        <h4>Border & Corners</h4>
+                        <label>Style: 
+                            <select id="prop-border-style" class="u-input">
+                                <option value="none">None</option>
+                                <option value="solid">Solid</option>
+                                <option value="dashed">Dashed</option>
+                                <option value="dotted">Dotted</option>
+                            </select>
+                        </label>
+                        
+                        <h5>Border Sizes (T, R, B, L)</h5>
+                        <div class="grid-4col">
+                            <input type="number" id="b-size-t" min="0" value="0" placeholder="T">
+                            <input type="number" id="b-size-r" min="0" value="0" placeholder="R">
+                            <input type="number" id="b-size-b" min="0" value="0" placeholder="B">
+                            <input type="number" id="b-size-l" min="0" value="0" placeholder="L">
+                        </div>
+
+                        <h5>Border Colors (T, R, B, L)</h5>
+                        <div class="grid-4col">
+                            <input type="color" id="b-color-t" value="#000000">
+                            <input type="color" id="b-color-r" value="#000000">
+                            <input type="color" id="b-color-b" value="#000000">
+                            <input type="color" id="b-color-l" value="#000000">
+                        </div>
+                        
+                        <h5>Corner Radii</h5>
+                        <label>Top-Left: <input type="range" id="radius-tl" min="0" max="100" value="0"></label>
+                        <label>Top-Right: <input type="range" id="radius-tr" min="0" max="100" value="0"></label>
+                        <label>Bottom-Left: <input type="range" id="radius-bl" min="0" max="100" value="0"></label>
+                        <label>Bottom-Right: <input type="range" id="radius-br" min="0" max="100" value="0"></label>
+                    </div>
+                    <button id="delete-element-btn" class="btn danger-btn" style="width: 100%; margin-top: 10px;">
+                        <i class="fa-solid fa-trash-can"></i> Delete Selected
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="canvas-area">
+            <div class="card-wrapper">
+                <div id="live-card" class="card ratio-1-1"></div>
+            </div>
+        </main>
+
+        <aside class="control-panel right-panel">
+            <h2>Layers Manager</h2>
+            <div class="layer-list-container" id="layers-container"></div>
+        </aside>
+    </div>
+
+    <div id="crop-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Crop Your Image</h3>
+            <div class="cropper-wrapper">
+                <img id="crop-image-target" src="" alt="To crop">
+            </div>
+            <div class="modal-actions">
+                <button id="crop-cancel-btn" class="btn danger-btn">Cancel</button>
+                <button id="crop-save-btn" class="btn success-btn">Crop & Insert</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
